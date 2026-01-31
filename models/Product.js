@@ -6,7 +6,9 @@ const productSchema = new mongoose.Schema({
     stock: Number,
     imageUrl: String,
     releaseDate: Date
-});
+},
+{ collection: "products" }
+);
 
 const Product = mongoose.model("Product", productSchema);
 
