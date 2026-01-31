@@ -1,16 +1,18 @@
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const connectDB = async () => {
-    try {
-        await mongoose.connect(process.env.MONGODB_URI);
-        console.log('MongoDB connected');
-    } catch (error) {
-        console.error('MongoDB connection failed:', error.message);
-        process.exit(1);
-    }
-};
+import { MongoClient, MongoClientOptions } from 'mongodb';
+import { attachDatabasePool } from '@vercel/functions';
 
-export default connectDB;
+const options = {
+    appName: "devrel.vercel.integration",
+    maxIdleTimeMS: 5000
+};
+const connectDB = new MongoClient(process.env.MONGODB_URI, options);
+
+// Attach the client to ensure proper cleanup on function suspension
+attachDatabasePool(connectDB);
+
+// Export a module-scoped MongoClient to ensure the client can be shared across functions.
+export default connectDB; 
