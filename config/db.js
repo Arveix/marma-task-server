@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-import { MongoClient, MongoClientOptions } from 'mongodb';
+import MongoClient from 'mongodb';
 import { attachDatabasePool } from '@vercel/functions';
 
 const options = {
