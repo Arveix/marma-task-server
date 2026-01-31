@@ -1,9 +1,8 @@
 import dotenv from 'dotenv';
+import { MongoClient } from 'mongodb';
+import { attachDatabasePool } from '@vercel/functions';
 
 dotenv.config();
-
-import MongoClient from 'mongodb';
-import { attachDatabasePool } from '@vercel/functions';
 
 const options = {
     appName: "devrel.vercel.integration",
